@@ -12,9 +12,7 @@ class StartScrapingView(APIView):
             return Response({"error": "No coins provided"}, status=status.HTTP_400_BAD_REQUEST)
         
         job = ScrapeJob.objects.create()
-        print("task callled")
-        # scrape_coins.delay(job.job_id, coins)
-        scrape_coins.apply_async((job.job_id, coins), countdown=4)
+        scrape_coins.delay(job.job_id, coins)
 
         return Response({"job_id": job.job_id}, status=status.HTTP_200_OK)
 

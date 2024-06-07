@@ -17,16 +17,14 @@ class CoinMarketCapScraper:
         print(self.driver)
 
     def scrape_coin(self,coin):
-        print("scraper  called",coin.lower())
         url = f"https://coinmarketcap.com/currencies/{coin.lower()}/"
         self.driver.get(url)
-        print(self.driver.find_element(By.CSS_SELECTOR, '.priceValue___11gHJ').text)
         time.sleep(1)
         
         data = {}
 
         try:
-            print("collecting data")
+
             data['price'] = self.driver.find_element(By.CSS_SELECTOR, '.priceValue___11gHJ').text
             data['price_change'] = self.driver.find_element(By.CSS_SELECTOR, '.sc-15yy2pl-0.feeyND').text
             data['market_cap'] = self.driver.find_element(By.CSS_SELECTOR, 'div.statsValue___2iaoZ').text
