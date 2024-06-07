@@ -12,14 +12,17 @@ class CoinMarketCapScraper:
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+        chrome_driver_path="C:/Users/Ajay Cloth Center/Downloads/chromedriver/chromedriver"
+        self.driver = webdriver.Chrome(chrome_driver_path)
+        print(self.driver)
 
-    def scrape_coin(self, coin):
+    def scrape_coin(self,coin):
         print("scraper  called",coin.lower())
         url = f"https://coinmarketcap.com/currencies/{coin.lower()}/"
         self.driver.get(url)
+        print(self.driver.find_element(By.CSS_SELECTOR, '.priceValue___11gHJ').text)
         time.sleep(1)
-
+        
         data = {}
 
         try:
